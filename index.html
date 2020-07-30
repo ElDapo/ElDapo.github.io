@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Command Generator 1.16</title>
+        <link href="style.css" rel="stylesheet" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div><input type="checkbox" onclick="gen()" id="invisible" >Unsichtbar</div>
+        <div><input type="checkbox" onclick="gen()" id="nogravity" >Keine Schwerkraft</div>
+        <div><input type="checkbox" onclick="gen()" id="invulnerable" >Unzerstörbar</div>
+        <div><input type="checkbox" onclick="gen()" id="glowing" >Leuchten</div>
+        <div><input type="checkbox" onclick="gen()" id="arms" >Arme</div>
+        <div><input type="checkbox" onclick="gen()" id="customname" >Sichtbarer Name</div>
+        <div><input type="checkbox" onclick="gen()" id="name" >Eigener Name:</div>
+        <div id="nameInput" style="display:none;">
+            <textarea onkeyup="gen()" id="nameText"></textarea>
+        </div>
+        <div id="command" class="command"></div>
+       
+        <script>
+            $(document).ready(function(){
+                var command = "/summon armor_stand ~ ~ ~ {";
+                command += "}";
+                document.getElementById("command").innerHTML = command;
+            });
+
+            function gen() {
+                var name = $("#nameText").val();
+                var command = "/summon armor_stand ~ ~ ~ {";
+                var tags = [];
+
+                if ($('#invisible').is(':checked')) {
+                    tags.push("Invisible:1b")
+                };
+
+                if ($('#nogravity').is(':checked')) {
+                    tags.push("NoGravity:1b")
+                };
+                
+                if ($('#invulnerable').is(':checked')) {
+                    tags.push("Invulnerable:1b")
+                };
+
+                if ($('#glowing').is(':checked')) {
+                    tags.push("Glowing:1b")
+                };
+
+                if ($('#arms').is(':checked')) {
+                    tags.push("ShowArms:1b")
+                };
+
+                if ($("#customname").is(":checked")) {
+                    tags.push("CustomNameVisible:1b")
+                }
+
+                if ($("#name").is(":checked")) {
+                    document.getElementById("nameInput").style.display = "block";
+                    tags.push("CustomName:\""+name+"\"");
+                } else {
+                    document.getElementById("nameInput").style.display = "none"
+                }
+
+                command += tags.join(",");
+                command += "}";
+                document.getElementById("command").innerHTML = command;
+            }
+        </script>
+
+    </body>
+</html>
+
+
+
+<!-- /summon armor_stand ~ ~ ~ {Small:1b,Marker:1b,NoBasePlate:1b,PersistenceRequired:1b} -->
