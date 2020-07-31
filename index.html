@@ -3,15 +3,18 @@
     <head>
         <title>Command Generator 1.16</title>
         <link href="files\css\style.css" rel="stylesheet" type="text/css">
+        <link href="files\js\index.js">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     </head>
     <body>
         <p>Minecraft Armorstand Generator 1.16+</p>
-        <div><input type="checkbox" onclick="gen()" id="invisible" >Unsichtbar</div>
-        <div><input type="checkbox" onclick="gen()" id="nogravity" >Keine Schwerkraft</div>
         <div><input type="checkbox" onclick="gen()" id="invulnerable" >Unzerstörbar</div>
-        <div><input type="checkbox" onclick="gen()" id="glowing" >Leuchten</div>
+        <div><input type="checkbox" onclick="gen()" id="nogravity" >Keine Schwerkraft</div>
         <div><input type="checkbox" onclick="gen()" id="arms" >Arme</div>
+        <div><input type="checkbox" onclick="gen()" id="invisible" >Unsichtbar</div>
+        <div><input type="checkbox" onclick="gen()" id="small" >Klein</div>
+        <div><input type="checkbox" onclick="gen()" id="nobaseplate" >Keine Platte an den Füßen</div>
+        <div><input type="checkbox" onclick="gen()" id="marker" >Keine Hitbox</div>
         <div><input type="checkbox" onclick="gen()" id="customname" >Sichtbarer Name</div>
         <div><input type="checkbox" onclick="gen()" id="name" >Eigener Name:</div>
         <div id="nameInput" style="display:none;">
@@ -31,25 +34,34 @@
                 var command = "/summon armor_stand ~ ~ ~ {";
                 var tags = [];
 
-                if ($('#invisible').is(':checked')) {
-                    tags.push("Invisible:1b")
-                };
-
-                if ($('#nogravity').is(':checked')) {
-                    tags.push("NoGravity:1b")
-                };
-                
                 if ($('#invulnerable').is(':checked')) {
                     tags.push("Invulnerable:1b")
                 };
 
-                if ($('#glowing').is(':checked')) {
-                    tags.push("Glowing:1b")
+                if ($('#nogravity').is(':checked')) {
+                tags.push("NoGravity:1b")
                 };
 
                 if ($('#arms').is(':checked')) {
                     tags.push("ShowArms:1b")
                 };
+
+                if ($('#invisible').is(':checked')) {
+                    tags.push("Invisible:1b")
+                };
+
+                if ($('#small').is(':checked')) {
+                    tags.push("Small:1b")
+                };
+
+
+                if ($("#nobaseplate").is(":checked")) {
+                    tags.push("NoBasePlate:1b")
+                }
+
+                if ($("#marker").is(":checked")) {
+                    tags.push("Marker:1b")
+                }
 
                 if ($("#customname").is(":checked")) {
                     tags.push("CustomNameVisible:1b")
@@ -70,7 +82,3 @@
 
     </body>
 </html>
-
-
-
-<!-- /summon armor_stand ~ ~ ~ {Small:1b,Marker:1b,NoBasePlate:1b,PersistenceRequired:1b} -->
